@@ -1,11 +1,16 @@
 using kampus_fit.Repo;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<GymDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Eski hali (PostgreSQL):
+// builder.Services.AddDbContext<AppDbContext>(options => 
+//     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Yeni hali (SQL Server):
+builder.Services.AddDbContext<GymDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
